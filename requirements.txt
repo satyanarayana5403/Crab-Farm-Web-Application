@@ -3,3 +3,4 @@ Flask-Cors
 pymysql
 cryptography
 python-dotenv
+requests
