@@ -70,8 +70,11 @@ def validate_indian_phone(phone):
         return cleaned
     return None
 
+from db_init import initialize_database
+
 # Verify database connection on startup
 try:
+    initialize_database()
     conn_test = pymysql.connect(
         host=DB_HOST,
         port=DB_PORT,
