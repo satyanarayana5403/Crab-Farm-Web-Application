@@ -383,11 +383,5 @@ async function logoutAdmin() {
 }
 window.logoutAdmin = logoutAdmin;
 
-// Redundant event listener binding
-const logoutBtn = document.querySelector('.nav-item-logout');
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', logoutAdmin);
-}
-
 // Load initial tab data
 loadTabData();
