@@ -11,6 +11,14 @@ DB_USER = os.getenv('DB_USER', os.getenv('MYSQLUSER', 'root'))
 DB_PASSWORD = os.getenv('DB_PASSWORD', os.getenv('MYSQLPASSWORD', ''))
 DB_NAME = os.getenv('DB_NAME', os.getenv('MYSQLDATABASE', 'crabfarm_db'))
 
+# If running on Railway and DB_HOST is still set to localhost (e.g., copied from local env), override with Railway variables
+if DB_HOST == 'localhost' and os.getenv('MYSQLHOST'):
+    DB_HOST = os.getenv('MYSQLHOST')
+    DB_PORT = int(os.getenv('MYSQLPORT', 3306))
+    DB_USER = os.getenv('MYSQLUSER', 'root')
+    DB_PASSWORD = os.getenv('MYSQLPASSWORD', '')
+    DB_NAME = os.getenv('MYSQLDATABASE', 'crabfarm_db')
+
 def initialize_database():
     print(f"Connecting to MySQL at {DB_HOST}:{DB_PORT} as user '{DB_USER}'...")
     
