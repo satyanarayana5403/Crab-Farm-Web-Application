@@ -154,6 +154,12 @@ def teardown_request(exception):
     if db is not None:
         db.close()
 
+# Helper to auto-logout admin when navigating to public pages
+@app.before_request
+def auto_logout_on_public_pages():
+    if request.path in ['/', '/index.html', '/track.html', '/login.html']:
+        session.pop('admin_logged_in', None)
+
 # Helper to enforce admin session authentication
 @app.before_request
 def check_admin_auth():
