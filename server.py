@@ -26,11 +26,11 @@ CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 PORT = int(os.getenv('PORT', 5000))
 
 # Database configuration
-DB_HOST = os.getenv('DB_HOST', 'localhost')
-DB_PORT = int(os.getenv('DB_PORT', 3306))
-DB_USER = os.getenv('DB_USER', 'root')
-DB_PASSWORD = os.getenv('DB_PASSWORD', '')
-DB_NAME = os.getenv('DB_NAME', 'crabfarm_db')
+DB_HOST = os.getenv('DB_HOST', os.getenv('MYSQLHOST', 'localhost'))
+DB_PORT = int(os.getenv('DB_PORT', os.getenv('MYSQLPORT', 3306)))
+DB_USER = os.getenv('DB_USER', os.getenv('MYSQLUSER', 'root'))
+DB_PASSWORD = os.getenv('DB_PASSWORD', os.getenv('MYSQLPASSWORD', ''))
+DB_NAME = os.getenv('DB_NAME', os.getenv('MYSQLDATABASE', 'crabfarm_db'))
 
 # Razorpay configuration
 RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', 'YOUR_RAZORPAY_KEY_ID')
