@@ -112,6 +112,19 @@ try:
                 print("'tracking_id' column added successfully")
         except Exception as migration_error:
             print(f"Migration error on orders: {migration_error}")
+
+        try:
+            cur.execute("SELECT `value` FROM settings WHERE `key` = 'whatsapp_phone';")
+            row = cur.fetchone()
+            if row:
+                val = row['value'] if isinstance(row, dict) else row[0]
+                if val == '+91 99999 99999':
+                    print("Updating default WhatsApp phone number in database...")
+                    cur.execute("UPDATE settings SET `value` = '+91 75690 47584' WHERE `key` = 'whatsapp_phone';")
+                    conn_test.commit()
+                    print("WhatsApp phone number updated successfully")
+        except Exception as migration_error:
+            print(f"Migration error on settings: {migration_error}")
     conn_test.close()
 except Exception as e:
     print(f"Error connecting to MySQL: {e}")

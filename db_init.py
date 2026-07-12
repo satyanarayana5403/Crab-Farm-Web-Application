@@ -147,7 +147,7 @@ def initialize_database():
     if cur.fetchone()[0] == 0:
         print("Inserting default settings...")
         default_settings = [
-            ('whatsapp_phone', '+91 99999 99999'),
+            ('whatsapp_phone', '+91 75690 47584'),
             ('location', 'Andhra Pradesh, India'),
             ('contact_email', 'hello@crabfarmco.in'),
             ('hero_title', 'Premium Mud Crabs from Our Farm'),
