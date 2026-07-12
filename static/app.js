@@ -1,6 +1,6 @@
 // ===== CONFIGURATION =====
 const API_URL = ''; // Relative path because backend serves frontend
-let PHONE = '919999999999'; // Default fallback WhatsApp phone number
+let PHONE = '917569047584'; // Default fallback WhatsApp phone number
 let products = [];
 let cart = [];
 
@@ -21,10 +21,10 @@ function renderProducts() {
   grid.innerHTML = products.map(p => {
     let stockHtml = '';
     let btnHtml = '';
-    
+
     // Check if this product is already in the cart
     const cartItem = cart.find(c => c.id === p.id);
-    
+
     if (p.stock_quantity <= 0) {
       stockHtml = `<div class="product-stock out-of-stock">❌ Out of Stock</div>`;
       btnHtml = `<button class="add-to-cart btn-out-of-stock" disabled>Out of Stock</button>`;
@@ -179,13 +179,13 @@ function openCheckoutModal() {
   const sendBtn = document.getElementById('otpSendBtn');
   if (sendBtn) sendBtn.style.display = '';
 
-  const total = cart.reduce((s,c) => s+c.qty*c.price, 0);
+  const total = cart.reduce((s, c) => s + c.qty * c.price, 0);
   const fee = Math.round(total * 0.02);
   const grand = total + fee;
   document.getElementById('co_summary').innerHTML = cart.map(c =>
     `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--sand);">
       <span>${c.emoji} ${c.name} × ${c.qty} ${c.unit}</span>
-      <span style="font-weight:500;">₹${(c.qty*c.price).toLocaleString('en-IN')}</span>
+      <span style="font-weight:500;">₹${(c.qty * c.price).toLocaleString('en-IN')}</span>
     </div>`
   ).join('');
   document.getElementById('co_subtotal').textContent = '₹' + total.toLocaleString('en-IN');
@@ -438,7 +438,7 @@ function selectPaymentMethod(method) {
     if (payBadges) payBadges.style.display = '';
 
     // Recalculate total with fee
-    const total = cart.reduce((s,c) => s+c.qty*c.price, 0);
+    const total = cart.reduce((s, c) => s + c.qty * c.price, 0);
     const fee = Math.round(total * 0.02);
     const grand = total + fee;
     document.getElementById('co_fee').textContent = '₹' + fee.toLocaleString('en-IN');
@@ -463,7 +463,7 @@ function selectPaymentMethod(method) {
     if (payBadges) payBadges.style.display = 'none';
 
     // Total without Razorpay fee for COD
-    const total = cart.reduce((s,c) => s+c.qty*c.price, 0);
+    const total = cart.reduce((s, c) => s + c.qty * c.price, 0);
     document.getElementById('co_total_final').textContent = '₹' + total.toLocaleString('en-IN');
 
     const advance = Math.round(total * 0.25);
@@ -529,7 +529,7 @@ async function initiateCOD() {
     console.error("Stock validation error:", error);
   }
 
-  const total = cart.reduce((s,c) => s+c.qty*c.price, 0);
+  const total = cart.reduce((s, c) => s + c.qty * c.price, 0);
   const advanceAmount = Math.round(total * 0.25);
   const email = document.getElementById('co_email').value.trim() || '';
 
@@ -544,7 +544,7 @@ async function initiateCOD() {
         name: 'CrabFarm Co.',
         description: `COD Advance (25%) — ${cart.map(c => `${c.name} x${c.qty}`).join(', ')}`,
         image: '',
-        handler: async function(response) {
+        handler: async function (response) {
           try {
             const orderData = {
               name, phone,
@@ -579,7 +579,7 @@ async function initiateCOD() {
             setTimeout(() => {
               const msg = encodeURIComponent(
                 `Hi CrabFarm Co.! COD Order ✅\nAdvance Paid: ₹${advanceAmount.toLocaleString('en-IN')}\nPayment ID: ${response.razorpay_payment_id}\n\nOrder:\n` +
-                cartCopy.map(c=>`• ${c.name} x${c.qty}`).join('\n') +
+                cartCopy.map(c => `• ${c.name} x${c.qty}`).join('\n') +
                 `\n\nTotal: ₹${total.toLocaleString('en-IN')}\nBalance on Delivery: ₹${(total - advanceAmount).toLocaleString('en-IN')}\n\nDelivery to: ${address}\nName: ${name}\nPhone: ${phone}`
               );
               window.open(`https://wa.me/${PHONE}?text=${msg}`, '_blank');
@@ -649,7 +649,7 @@ async function initiateRazorpay() {
       // Update global products list
       products = freshProducts;
       renderProducts();
-      
+
       for (const item of cart) {
         const fresh = freshProducts.find(p => p.id === item.id);
         if (!fresh || fresh.stock_quantity <= 0) {
@@ -670,7 +670,7 @@ async function initiateRazorpay() {
     console.error("Stock validation error:", error);
   }
 
-  const total = cart.reduce((s,c) => s+c.qty*c.price, 0);
+  const total = cart.reduce((s, c) => s + c.qty * c.price, 0);
   const fee = Math.round(total * 0.02);
   const grand = total + fee;
   const email = document.getElementById('co_email').value.trim() || 'customer@crabfarmco.in';
@@ -686,7 +686,7 @@ async function initiateRazorpay() {
         name: 'CrabFarm Co.',
         description: cart.map(c => `${c.name} x${c.qty}`).join(', '),
         image: '',
-        handler: async function(response) {
+        handler: async function (response) {
           try {
             const orderData = {
               name, phone, email, address,
@@ -717,7 +717,7 @@ async function initiateRazorpay() {
             setTimeout(() => {
               const msg = encodeURIComponent(
                 `Hi CrabFarm Co.! Payment done ✅\nPayment ID: ${response.razorpay_payment_id}\n\nOrder:\n` +
-                cartCopy.map(c=>`• ${c.name} x${c.qty}`).join('\n') +
+                cartCopy.map(c => `• ${c.name} x${c.qty}`).join('\n') +
                 `\n\nDelivery to: ${address}\nName: ${name}\nPhone: ${phone}`
               );
               window.open(`https://wa.me/${PHONE}?text=${msg}`, '_blank');
@@ -753,10 +753,10 @@ async function waCheckout() {
     showToast('Cart is empty!');
     return;
   }
-  const lines = cart.map(c => `• ${c.name} x${c.qty} (₹${(c.qty*c.price).toLocaleString('en-IN')})`).join('\n');
-  const total = cart.reduce((s,c) => s+c.qty*c.price,0);
+  const lines = cart.map(c => `• ${c.name} x${c.qty} (₹${(c.qty * c.price).toLocaleString('en-IN')})`).join('\n');
+  const total = cart.reduce((s, c) => s + c.qty * c.price, 0);
   const msg = encodeURIComponent(`Hi CrabFarm Co.! I'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}\n\nPlease confirm availability and delivery details.`);
-  
+
   try {
     const orderData = {
       name: 'WhatsApp Inquiry',
@@ -770,10 +770,10 @@ async function waCheckout() {
     };
     const result = await saveOrderToDatabase(orderData);
     const orderId = result.orderId;
-    
+
     showToast('Order saved! Opening WhatsApp & tracking page...');
     window.open(`https://wa.me/${PHONE}?text=${msg}`, '_blank');
-    
+
     setTimeout(() => {
       window.location.href = `/track.html?id=${orderId}`;
     }, 1200);
@@ -834,53 +834,53 @@ function toggleMenu() {
 // Dynamically apply settings fetched from database
 function applySettings(settings) {
   if (!settings) return;
-  
+
   if (settings.whatsapp_phone) {
     // Format PHONE for wa.me links (remove +, spaces, hyphens)
     PHONE = settings.whatsapp_phone.replace(/[+\s-]/g, '');
   }
-  
+
   const location = settings.location || 'Andhra Pradesh, India';
   const cleanLocation = location.split(',')[0].trim(); // Get state name
-  
+
   // Update UI Elements with Settings values if they exist
   const heroLocEl = document.getElementById('heroLocation');
   if (heroLocEl) heroLocEl.textContent = `Fresh · Farm-Raised · ${cleanLocation}`;
-  
+
   const heroTitleEl = document.getElementById('heroTitle');
   if (heroTitleEl && settings.hero_title) heroTitleEl.innerHTML = settings.hero_title;
-  
+
   const heroSubEl = document.getElementById('heroSubtitle');
   if (heroSubEl && settings.hero_subtitle) heroSubEl.textContent = settings.hero_subtitle;
-  
+
   const shopSubEl = document.getElementById('shopSubtitle');
   if (shopSubEl) shopSubEl.textContent = `Live, fresh-cleaned, or packed — ordered today, delivered to you in ${cleanLocation}.`;
-  
+
   const storyTitleEl = document.getElementById('storyTitle');
   if (storyTitleEl && settings.story_title) storyTitleEl.textContent = settings.story_title;
-  
+
   const storyDescEl = document.getElementById('storyDesc');
   if (storyDescEl && settings.story_desc) storyDescEl.textContent = settings.story_desc;
-  
+
   const storyPt1El = document.getElementById('storyPoint1');
   if (storyPt1El) storyPt1El.textContent = `Our mud crabs are raised in clean, controlled water ponds in ${cleanLocation}, fed on natural diet for premium quality.`;
-  
+
   const delPt4El = document.getElementById('deliveryPoint4');
   if (delPt4El) delPt4El.textContent = `We deliver across ${cleanLocation} within 48 hours. Same-day delivery available in Chennai area.`;
-  
+
   const contactLocEl = document.getElementById('contactLocation');
   if (contactLocEl) contactLocEl.innerHTML = `${location}<br>Delivery across ${cleanLocation}`;
-  
+
   const contactPhoneEl = document.getElementById('contactPhone');
   if (contactPhoneEl && settings.whatsapp_phone) {
     contactPhoneEl.innerHTML = `${settings.whatsapp_phone}<br>Mon–Sat, 8am–6pm`;
   }
-  
+
   const contactEmailEl = document.getElementById('contactEmail');
   if (contactEmailEl && settings.contact_email) {
     contactEmailEl.textContent = settings.contact_email;
   }
-  
+
   const footerTextEl = document.getElementById('footerText');
   if (footerTextEl) footerTextEl.textContent = `Fresh mud crabs, farm-raised in ${cleanLocation}.`;
 
@@ -899,7 +899,7 @@ async function loadInitialData() {
       const settings = await settingsRes.json();
       applySettings(settings);
     }
-    
+
     // Fetch products
     const productsRes = await fetch(`${API_URL}/api/products`);
     if (productsRes.ok) {
@@ -932,7 +932,7 @@ function getCurrentLocation() {
       const lng = position.coords.longitude;
       btn.disabled = false;
       btn.textContent = '📍 Pin Location';
-      
+
       // Initialize map with user geolocation coordinates
       initCheckoutMap(lat, lng);
       showToast('✅ Pinned location coordinates successfully!');

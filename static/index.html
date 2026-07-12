@@ -10,8 +10,10 @@
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <!-- Leaflet Map library -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 
 <body>
@@ -118,7 +120,7 @@
   <div class="wa-banner">
     <h2>Prefer to Order on WhatsApp?</h2>
     <p>Chat with us directly for bulk orders, custom quantities, or any questions about our crabs.</p>
-    <a href="https://wa.me/919999999999?text=Hi%20CrabFarm%20Co.!%20I%27d%20like%20to%20order%20mud%20crabs."
+    <a href="https://wa.me/917569047584?text=Hi%20CrabFarm%20Co.!%20I%27d%20like%20to%20order%20mud%20crabs."
       target="_blank" class="wa-btn" id="waBannerLink">
       <svg class="wa-icon" viewBox="0 0 24 24" fill="white">
         <path
@@ -314,15 +316,19 @@
       <div class="form-group">
         <label>Google Maps Location / Pin *</label>
         <div style="display:flex;gap:8px;">
-          <input type="text" id="co_map_location" placeholder="📍 Click Pin button or paste Google Maps link" style="flex:1;" required>
-          <button type="button" class="otp-send-btn" id="btnPinLocation" onclick="getCurrentLocation()" style="background:#2980b9;">📍 Pin Location</button>
+          <input type="text" id="co_map_location" placeholder="📍 Click Pin button or paste Google Maps link"
+            style="flex:1;" required>
+          <button type="button" class="otp-send-btn" id="btnPinLocation" onclick="getCurrentLocation()"
+            style="background:#2980b9;">📍 Pin Location</button>
         </div>
         <div id="checkoutMapContainer" style="margin-top: 10px; display: none;">
-          <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+          <div
+            style="font-size: 12px; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
             <span>🗺️ Drag marker or pan map to adjust exact pin location</span>
             <span id="mapCoordsLabel" style="font-family: monospace; font-size: 11px;"></span>
           </div>
-          <div id="checkoutMap" style="height: 180px; border-radius: 8px; border: 1px solid var(--sand); z-index: 1;"></div>
+          <div id="checkoutMap" style="height: 180px; border-radius: 8px; border: 1px solid var(--sand); z-index: 1;">
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -355,11 +361,15 @@
       <div class="checkout-section-title">Choose Payment Method</div>
       <div class="payment-method-selector">
         <div class="pm-option active" id="pmOnline" onclick="selectPaymentMethod('razorpay')">
-          <div class="pm-radio"><div class="pm-radio-inner"></div></div>
+          <div class="pm-radio">
+            <div class="pm-radio-inner"></div>
+          </div>
           <div class="pm-label">💳 Pay Online<small>Full payment via Razorpay</small></div>
         </div>
         <div class="pm-option" id="pmCOD" onclick="selectPaymentMethod('cod')">
-          <div class="pm-radio"><div class="pm-radio-inner"></div></div>
+          <div class="pm-radio">
+            <div class="pm-radio-inner"></div>
+          </div>
           <div class="pm-label">🚛 Cash on Delivery<small>Pay 25% advance now</small></div>
         </div>
       </div>
